@@ -1,0 +1,5 @@
+{
+  "IndexerNode": "http://127.0.0.1:3002",
+  "IpfsHome": "/opt/",
+  "TestFileHome": "/opt/data/"
+}
