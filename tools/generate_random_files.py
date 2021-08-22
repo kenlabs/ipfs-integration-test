@@ -21,6 +21,7 @@ def setup_dir(target_dir):
 
 def generate_file(target_file, file_size):
     f = open(target_file, 'w')
+    print("Generating %s with file size %d" % (target_file, file_size))
     letters_len = len(LETTERS)
     for n in range(file_size):
         index = random.randint(0, letters_len - 1)
