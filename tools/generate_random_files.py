@@ -4,7 +4,7 @@ import sys
 import os
 import random
 
-LETTERS = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+BATCH_SIZE = 1024 * 1024  # 1M bytes per write
 
 
 def usage():
@@ -20,12 +20,18 @@ def setup_dir(target_dir):
 
 
 def generate_file(target_file, file_size):
-    f = open(target_file, 'w')
+    f = open(target_file, 'wb')
     print("Generating %s with file size %d" % (target_file, file_size))
-    letters_len = len(LETTERS)
-    for n in range(file_size):
-        index = random.randint(0, letters_len - 1)
-        f.write(LETTERS[index])
+    bytes_left = file_size
+
+    while bytes_left > 0:
+        limit = BATCH_SIZE
+        if bytes_left < BATCH_SIZE:
+            limit = bytes_left
+
+        f.write(os.urandom(limit))
+        bytes_left = bytes_left - limit
+
     f.close()
 
 
